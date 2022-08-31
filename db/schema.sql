@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS strength_db;
+
+CREATE DATABASE strength_db;

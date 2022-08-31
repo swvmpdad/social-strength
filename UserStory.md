@@ -24,3 +24,20 @@
             - Posts
             - Comments
             - Upvotes
+
+## Packages We Need
+    - Bcrypt
+    - dotenv
+    - Express
+    - MySQL2
+    - Nodemon
+    - express-handlebars
+    - express-session
+    - Sequelize
+
+## Ideas for unused assets
+    - Bootstrap?
+    - Node Packages:
+        - Lodash
+        - Chalk
+        - Nodemon
