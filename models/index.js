@@ -14,14 +14,16 @@ Routine.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-Routine.hasMany(Exercise, {
-    foreignKey: 'exercise_ids'
-});
-
 Exercise.belongsTo(User, {
     foreignKey: 'added_by'
 });
 
-Exercise.belongsTo(Routine, {
-    foreignKey: 'exercises_ids'
+Routine.hasMany(Exercise, {
+    foreignKey: 'exercise_ids'
 });
+
+Exercise.belongsTo(Routine, {
+    foreignKey: 'exercise_ids'
+})
+
+module.exports = { User, Exercise, Routine };
