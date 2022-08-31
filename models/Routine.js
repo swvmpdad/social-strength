@@ -24,7 +24,7 @@ Routine.init(
             }
         },
         excercise_ids: {
-            type: DataTypes.ARRAY,
+            type: DataTypes.INTEGER,
             references: {
                 model: 'exercise',
                 key: 'id'
@@ -35,6 +35,7 @@ Routine.init(
         sequelize,
         timestamps: false,
         underscored: true,
+        freezeTableName: true,
         modelName: 'routine'
     }
 );
