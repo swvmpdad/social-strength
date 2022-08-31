@@ -4,12 +4,14 @@ const exerciseData = [
     {
         exercise_name: 'Squat',
         muscle_group: 'Legs',
-        description: 'Lowering of the hips while bending at the knees and returning to a standing positon.'
+        description: 'Lowering of the hips while bending at the knees and returning to a standing positon.',
+        user_id: 1
     },
     {
         exercise_name: 'Bench Press',
         muscle_group: 'Chest',
-        description: 'Pressing a weight away from your chest while lying flat on your back and repeatedly lowering and raising it.'
+        description: 'Pressing a weight away from your chest while lying flat on your back and repeatedly lowering and raising it.',
+        user_id: 2
     },
     // {
     //     exercise_name: 'Deadlift'
