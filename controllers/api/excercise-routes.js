@@ -38,7 +38,10 @@ router.get('/:id', (req, res) => {
                 model: User,
                 attributes: ['username']
             }
-        ]
+        ],
+        where: {
+            id: req.params.id
+        }
     })
         .then(dbExerciseData => {
             if (!dbExerciseData) {
