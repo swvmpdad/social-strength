@@ -1,100 +1,88 @@
 const router = require('express').Router();
 const { User, Exercise, Routine } = require('../../models');
 
-// Get all users
+// GET all exercises
 router.get('/', (req, res) => {
-    User.findAll({
-        attributes: { exclude: ['password'] }
-    })
-        .then(dbUserData => res.json(dbUserData))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        });
-});
-
-// GET one user
-router.get('/:id', (req, res) => {
-    User.findOne({
+    Exercise.findAll({
+        attributes: [
+            'id',
+            'exercise_name',
+            'muscle_group',
+            'description'
+        ],
         include: [
             {
-                model: Exercise,
-                attributes: ['id', 'exercise_name', 'muscle_group', 'description']
-            },
-            {
-                model: Routine,
-                attributes: ['id', 'routine_name', 'exercise_ids']
+                model: User,
+                attributes: ['username']
             }
+        ]
+    })
+        .then(dbExerciseData => res.json(dbExerciseData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+// GET one exercise
+router.get('/:id', (req, res) => {
+    Exercise.findOne({
+        attributes: [
+            'id',
+            'exercise_name',
+            'muscle_group',
+            'description'
         ],
-        attributes: { exclude: ['password']},
-        where: {
-            id: req.params.id
-        }
+        include: [
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
     })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with that id' });
+        .then(dbExerciseData => {
+            if (!dbExerciseData) {
+                res.status(404).json({ message: 'No exercise found with that id.' });
                 return;
             }
-            res.json(dbUserData);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+            res.json(dbExerciseData);
         });
 });
 
-// POST new user
+// POST a new exercise
 router.post('/', (req, res) => {
-    User.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
+    Exercise.create({
+        exercise_name: req.body.exercise_name,
+        muscle_group: req.body.muscle_group,
+        description: req.body.description
     })
-        .then(dbUserData => res.json(dbUserData))
+        .then(dbExerciseData => res.json(dbExerciseData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
 
-// POST login
-router.post('/login', (req, res) => {
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
-    })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user with that email address.' });
-                return;
-            }
-
-            // verify user
-            const validPassword = dbUserData.checkPassword(req.body.password);
-            if (!validPassword) {
-                res.status(400).json({ message: 'Incorrect password' });
-                return;
-            }
-            res.json({ user: dbUserData, message: 'You are now logged in.' });
-        });
-});
-
-// PUT update user
+// PUT update exercise
 router.put('/:id', (req, res) => {
-    User.update(req.body, {
-        individualHooks: true,
-        where: {
-            id: req.params.id
+    Exercise.update(
+        {
+            exercise_name: req.body.exercise_name,
+            muscle_group: req.body.muscle_group,
+            description: req.body.description
+        },
+        {
+            where: {
+                id: req.params.id
+            }
         }
-    })
-        .then(dbUserData => {
-            if (!dbUserData[0]) {
-                res.status(404).json({ message: 'No user found with this id' });
+    )
+        .then(dbExerciseData => {
+            if (!dbExerciseData) {
+                res.status(404).json({ message: 'No exercise found with this id.' });
                 return;
             }
-            res.json(dbUserData);
+            res.json(dbExerciseData);
         })
         .catch(err => {
             console.log(err);
@@ -102,19 +90,18 @@ router.put('/:id', (req, res) => {
         });
 });
 
-// DELETE user
 router.delete('/:id', (req, res) => {
-    User.destroy({
+    Exercise.destroy({
         where: {
             id: req.params.id
         }
     })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with that id.' });
+        .then(dbExerciseData => {
+            if (!dbExerciseData) {
+                res.status(404).json({ message: 'No exercise found with that id.' });
                 return;
             }
-            res.json(dbUserData);
+            res.json(dbExerciseData);
         })
         .catch(err => {
             console.log(err);
