@@ -16,17 +16,17 @@ router.get('/', (req, res) => {
 // GET one user
 router.get('/:id', (req, res) => {
     User.findOne({
+        attributes: { exclude: ['password']},
         include: [
             {
                 model: Exercise,
-                attributes: ['id', 'exercise_name', 'muscle_group', 'description']
+                attributes: ['exercise_name']
             },
             {
                 model: Routine,
-                attributes: ['id', 'routine_name', 'exercise_ids']
+                attributes: ['routine_name']
             }
         ],
-        attributes: { exclude: ['password']},
         where: {
             id: req.params.id
         }
