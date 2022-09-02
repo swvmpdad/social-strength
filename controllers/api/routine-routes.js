@@ -66,9 +66,8 @@ router.post('/', (req, res) => {
     Routine.create({
         routine_name: req.body.routine_name,
         user_id: req.body.user_id,
-        exerciseIds: req.body.exerciseIds
     })
-        .then(dbRoutineData => {
+        .then((routine) => {
             if (req.body.exerciseIds.length) {
                 const routineExerciseIdArr = req.body.exerciseIds.map((exercise_id) => {
                     return {
