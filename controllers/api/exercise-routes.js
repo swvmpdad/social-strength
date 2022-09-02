@@ -8,8 +8,9 @@ router.get('/', (req, res) => {
             'id',
             'exercise_name',
             'muscle_group',
-            'description'
+            'description',
         ],
+        exclude: ['video'],
         include: [
             {
                 model: User,
@@ -31,7 +32,8 @@ router.get('/:id', (req, res) => {
             'id',
             'exercise_name',
             'muscle_group',
-            'description'
+            'description',
+            'video'
         ],
         include: [
             {
@@ -57,7 +59,8 @@ router.post('/', (req, res) => {
     Exercise.create({
         exercise_name: req.body.exercise_name,
         muscle_group: req.body.muscle_group,
-        description: req.body.description
+        description: req.body.description,
+        video: req.body.video
     })
         .then(dbExerciseData => res.json(dbExerciseData))
         .catch(err => {
@@ -72,7 +75,8 @@ router.put('/:id', (req, res) => {
         {
             exercise_name: req.body.exercise_name,
             muscle_group: req.body.muscle_group,
-            description: req.body.description
+            description: req.body.description,
+            video: req.body.video
         },
         {
             where: {

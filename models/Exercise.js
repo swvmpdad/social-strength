@@ -23,6 +23,12 @@ Exercise.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        video: {
+            type: DataTypes.STRING,
+            validate: {
+                isUrl: true
+            }
+        },
         added_by: {
             type: DataTypes.INTEGER,
             references: {
