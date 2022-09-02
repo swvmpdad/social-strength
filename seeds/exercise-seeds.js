@@ -13,6 +13,11 @@ const exerciseData = [
         description: 'Pressing a weight away from your chest while lying flat on your back and repeatedly lowering and raising it.',
         user_id: 2
     },
+    {
+        exercise_name: 'Leg Press',
+        muscle_group: 'Legs',
+        description: 'Placing your feet on the platform, press the weight away from you by extending your legs'
+    }
     // {
     //     exercise_name: 'Deadlift'
     // },

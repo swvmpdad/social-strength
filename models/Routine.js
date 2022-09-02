@@ -22,13 +22,6 @@ Routine.init(
                 model: 'user',
                 key: 'id'
             }
-        },
-        exercise_ids: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'exercise',
-                key: 'id'
-            }
         }
     },
     {
