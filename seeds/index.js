@@ -1,6 +1,7 @@
 const seedExercises = require('./exercise-seeds');
 const seedUsers = require('./user-seeds');
 const seedRoutines = require('./routine-seeds');
+const seedRoutineExercises = require('./routine-exercise-seeds');
 
 const sequelize = require('../config/connection');
 
@@ -16,6 +17,9 @@ const seedAll = async () => {
 
     await seedRoutines();
     console.log('\n----- ROUTINES SEEDED -----\n');
+
+    await seedRoutineExercises();
+    console.log('\n----- ROUTINE EXERCISES SEEDED -----\n');
 
     process.exit(0);
 };
