@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Social Strength</title>
-
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -28,6 +28,15 @@
       {{{body}}}
     </div>
   </main>
+  <footer>
+    <h2>
+      {{#if loggedIn}}
+
+      <div></div>
+      {{else}}
+      <div>you are logged out</div>
+{{/if}}
+    </h2>
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
