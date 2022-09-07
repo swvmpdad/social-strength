@@ -22,18 +22,10 @@ Routine.init(
                 model: 'user',
                 key: 'id'
             }
-        },
-        exercise_ids: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'exercise',
-                key: 'id'
-            }
         }
     },
     {
         sequelize,
-        timestamps: false,
         underscored: true,
         freezeTableName: true,
         modelName: 'routine'

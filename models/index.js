@@ -1,6 +1,7 @@
 const User = require('./User');
 const Exercise = require('./Exercise');
 const Routine = require('./Routine');
+const RoutineExercise = require('./RoutineExercise');
 
 User.hasMany(Routine, {
     foreignKey: 'user_id'
@@ -18,12 +19,16 @@ Exercise.belongsTo(User, {
     foreignKey: 'added_by'
 });
 
-Routine.hasMany(Exercise, {
-    foreignKey: 'exercise_ids'
+Routine.belongsToMany(Exercise, {
+    through: RoutineExercise,
+    as: 'exercises',
+    foreignKey: 'routine_id'
 });
 
-Exercise.belongsTo(Routine, {
-    foreignKey: 'exercise_ids'
-})
+Exercise.belongsToMany(Routine, {
+    through: RoutineExercise,
+    as: 'routines',
+    foreignKey: 'exercise_id'
+});
 
-module.exports = { User, Exercise, Routine };
+module.exports = { User, Exercise, Routine, RoutineExercise };
