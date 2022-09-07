@@ -73,26 +73,24 @@ router.post('/', async (req, res) => {
   }
 });
 
-const tempemail = "swvmpdad@gmail.com";
-const temppassword = "password123";
-
 router.post('/login', (req, res) => {
   // When the user logs in, we need to find the user in the database by their email address
   User.findOne({
+    //this query is looking for the email address that matches the email address that the user typed in
     where: { email: req.body.email }
   }).then(dbUserData => {
     if (!dbUserData) {
       res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
-
+    //this allows us to verify the user's password
     const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {666765
       res.status(400).json({ message: 'Incorrect password!' });
       return;
     }
-
+    //this is where we set up the session variables
     req.session.save(() => {
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
