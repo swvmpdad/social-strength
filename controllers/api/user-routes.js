@@ -1,12 +1,19 @@
 const router = require('express').Router();
 const { User, Exercise, Routine } = require('../../models');
+const bcrypt = require('bcrypt');
 
 // Get all users
 router.get('/', (req, res) => {
     User.findAll({
         attributes: { exclude: ['password'] }
+    }).then(dbUserData => {
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+      req.session.loggedIn = true;
+      res.json(dbUserData);
+      
     })
-        .then(dbUserData => res.json(dbUserData))
+        
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -54,9 +61,11 @@ router.post('/', async (req, res) => {
     });
 
     req.session.save(() => {
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
       req.session.loggedIn = true;
-
-      res.status(200).json(dbUserData);
+  
+      res.json(dbUserData);
     });
   } catch (err) {
     console.log(err);
@@ -64,44 +73,33 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Login
-router.post('/login', async (req, res) => {
-  try {
-    const dbUserData = await User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    });
-
+router.post('/login', (req, res) => {
+  // When the user logs in, we need to find the user in the database by their email address
+  User.findOne({
+    //this query is looking for the email address that matches the email address that the user typed in
+    where: { email: req.body.email }
+  }).then(dbUserData => {
     if (!dbUserData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+      res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
+    //this allows us to verify the user's password
+    const validPassword = dbUserData.checkPassword(req.body.password);
 
-    const validPassword = await dbUserData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
+    if (!validPassword) {666765
+      res.status(400).json({ message: 'Incorrect password!' });
       return;
     }
-
+    //this is where we set up the session variables
     req.session.save(() => {
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
       req.session.loggedIn = true;
-
-      res
-        .status(200)
-        .json({ user: dbUserData, message: 'You are now logged in!' });
+  
+      res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
+  });
 });
-
 // Logout
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
