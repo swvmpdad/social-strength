@@ -26,7 +26,6 @@ Routine.init(
     },
     {
         sequelize,
-        timestamps: false,
         underscored: true,
         freezeTableName: true,
         modelName: 'routine'
