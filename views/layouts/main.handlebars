@@ -5,39 +5,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Social Strength</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <header>
-    <h1>Welcome to Social Strength</h1>
+  <header class="container">
+    <div class="col-3"></div>
+    <div class="col-auto">
+      <h1>Welcome to Social Strength!</h1>
+    </div>
+    <div class="col-3"></div>
   </header>
   <nav>
-    <a href="/">Home</a>
+    <a href="/">
+      <button type="button" class="btn-secondary">Home</button>
+    </a>
     {{#if loggedIn}}
-    <button id="logout" class="btn-no-style">Logout</button>
+    <button id="logout" type="button" class="btn-secondary">Logout</button>
     {{else}}
-    <a href="/login">Login</a>
+    <a href="/login">
+      <button type="button" class="btn-secondary">Login</button>
+    </a>
     {{/if}}
   </nav>
   <main>
-    <aside>
-      
-      
-    </aside>
-    <div>
-      {{{body}}}
-    </div>
+    {{{body}}}
   </main>
+    {{#if loggedIn}}
   <footer>
-    <h2>
-      {{#if loggedIn}}
+    <p>Made by Garrett, Alan, Jayden, and Chitiz</p>
+  </footer>
+    {{else}}
+    <footer>
+      <p>
 
-      <div></div>
-      {{else}}
-      <div>you are logged out</div>
-{{/if}}
-    </h2>
+        <div>you are logged out. Please log in to view the site.</div>
+
+      </p>
+    {{/if}}
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
