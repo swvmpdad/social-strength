@@ -20,8 +20,14 @@ Exercise.init(
             allowNull: false
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
+        },
+        video: {
+            type: DataTypes.STRING,
+            validate: {
+                isUrl: true
+            }
         },
         added_by: {
             type: DataTypes.INTEGER,

@@ -2,7 +2,11 @@ const router = require('express').Router();
 const { User} = require('../models');
 const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
-    res.render('homepage')
+  console.log(req.session);
+    res.render('homepage', {
+      loggedIn: req.session.loggedIn
+    });
+
 });
 
 router.get('/login', (req, res) => {
@@ -12,6 +16,6 @@ router.get('/login', (req, res) => {
       return;
     }
    //Otherwise, render the 'login' template
-    res.render('login');
+    res.render('login',);
   });
 module.exports = router;
