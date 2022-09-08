@@ -36,3 +36,8 @@ footer {
     padding: 1%;
     font-size: 110%;
   }
+
+img {
+  height: 200px;
+  width: 300px;
+}
