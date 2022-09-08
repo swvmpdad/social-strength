@@ -73,7 +73,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.post('/login', (req, res) => {
+router.post('/log-in', (req, res) => {
   // When the user logs in, we need to find the user in the database by their email address
   User.findOne({
     //this query is looking for the email address that matches the email address that the user typed in

@@ -1,0 +1,7 @@
+<div class="container">
+    <ul>
+        {{#each routines as |routine|}}
+        <li><a href="/routine/{{routine.id}}">{{routine.routine_name}}</a></li>
+        {{/each}}
+    </ul>
+</div>
