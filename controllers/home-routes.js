@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Exercise, Routine } = require('../models');
+const getId = require('../public/js/getId');
 const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   console.log(req.session);
@@ -36,13 +37,27 @@ router.get('/exercise-list', withAuth, (req, res) => {
     });
   });
 
-  // router.get('/exercise', withAuth, (req, res) => {
-  //   Exercise.findOne({
-  //     where: {
-  //       id: 
-  //     },
-  //   })
-  // })
+router.get(`/exercise/`, withAuth, (req, res) => {
+  
+  Exercise.findOne({
+    where: {
+      id: getId()
+    },
+    attributes: [
+      'id',
+      'exercise_name'
+    ]
+  })
+    .then(dbExerciseData => {
+      const exercises = dbExerciseData.map(exercise => exercise.get({ plain: true }));
+      res.render('exercise-list', { exercises });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 
 router.get('/routines', withAuth, (req, res) => {
   Routine.findAll({
