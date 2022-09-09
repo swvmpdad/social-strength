@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { User, Exercise, Routine } = require('../models');
-const getId = require('../public/js/getId');
+const { User, Exercise, Routine, RoutineExercise } = require('../models');
 const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   console.log(req.session);
@@ -37,20 +36,21 @@ router.get('/exercise-list', withAuth, (req, res) => {
     });
   });
 
-router.get(`/exercise/`, withAuth, (req, res) => {
-  
+router.get('/exercise/:id', withAuth, (req, res) => {
   Exercise.findOne({
     where: {
-      id: getId()
+      id: req.params.id
     },
     attributes: [
-      'id',
-      'exercise_name'
+      'exercise_name',
+      'muscle_group',
+      'description',
+      'video'
     ]
   })
     .then(dbExerciseData => {
-      const exercises = dbExerciseData.map(exercise => exercise.get({ plain: true }));
-      res.render('exercise-list', { exercises });
+      const exercise = dbExerciseData.get({ plain: true });
+      res.render('exercise', { exercise });
     })
     .catch(err => {
       console.log(err);
@@ -72,6 +72,41 @@ router.get('/routines', withAuth, (req, res) => {
     })
     .catch(err => {
       console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.get('/routine/:id', withAuth, (req, res) => {
+  Routine.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'routine_name',
+      'user_id',
+      'username',
+      'exercise_name'
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['username']
+      },
+      {
+        model: RoutineExercise,
+        attributes: ['routine_id', 'exercise_id'],
+        include: {
+          model: Exercise,
+          attributes: ['exercise_name']
+        }
+      }
+    ]
+  })
+    .then(dbRoutineData => {
+      const routine = dbRoutineData.get({ plain: true });
+      res.render('routine', { routine })
+    })
+    .catch(err => {
       res.status(500).json(err);
     });
 });
