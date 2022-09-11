@@ -63,7 +63,14 @@ router.get('/routines', withAuth, (req, res) => {
   Routine.findAll({
     attributes: [
       'id',
-      'routine_name'
+      'routine_name',
+      'user_id'
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['username']
+      }
     ]
   })
     .then(dbRoutineData => {
@@ -82,24 +89,40 @@ router.get('/routine/:id', withAuth, (req, res) => {
       id: req.params.id
     },
     attributes: [
+      'id',
       'routine_name',
-      'user_id',
-      'username',
-      'exercise_name'
+      'user_id'
     ],
     include: [
       {
         model: User,
         attributes: ['username']
       },
-      {
-        model: RoutineExercise,
-        attributes: ['routine_id', 'exercise_id'],
-        include: {
-          model: Exercise,
-          attributes: ['exercise_name']
-        }
-      }
+      // {
+      //   model: Exercise,
+      //   attributes: ['exercise_name']
+      // },
+      // {
+      //   model: RoutineExercise,
+      //   attributes: ['routine_id', 'exercise_id'],
+      //   include:
+      //     {
+      //       model: Exercise,
+      //       attributes: ['exercise_name']
+      //     }
+      // },
+      // {
+      //   model: Exercise,
+      //   attributes: ['exercise_name']
+      // }
+    //   {
+    //     model: RoutineExercise,
+    //     attributes: ['routine_id', 'exercise_id'],
+    //     include: {
+    //       model: Routine,
+    //       attributes: ['id']
+    //     }
+    //   }
     ]
   })
     .then(dbRoutineData => {

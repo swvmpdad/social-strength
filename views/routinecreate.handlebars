@@ -1,0 +1,10 @@
+<form class="routine-form">
+    <div>
+        <textarea name="routine-name"></textarea>
+        <ul>
+            {{#each exercise.exercise_name}}
+            <li><input id="exercise-{{exercise.id}}" type="checkbox">{{exercise.exercise_name}}</li>
+        </ul>
+        <button class="submit">Submit</button>
+    </div>
+</form>
