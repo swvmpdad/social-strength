@@ -151,4 +151,8 @@ router.get('/routinecreate', withAuth, (req, res) => {
     });
 }); 
 
+router.get('/addexercise', withAuth, (req, res) => {
+  res.render('addexercise');
+});
+
 module.exports = router;
