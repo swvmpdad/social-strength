@@ -134,4 +134,21 @@ router.get('/routine/:id', withAuth, (req, res) => {
     });
 });
 
+router.get('/routinecreate', withAuth, (req, res) => {
+  Exercise.findAll({
+    attributes: [
+      'id',
+      'exercise_name'
+    ]
+  })
+    .then(dbExerciseData => {
+      const exercises = dbExerciseData.map(exercise => exercise.get({ plain: true }));
+      res.render('routinecreate', { exercises });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+}); 
+
 module.exports = router;
