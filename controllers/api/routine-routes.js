@@ -65,7 +65,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     Routine.create({
         routine_name: req.body.routine_name,
-        user_id: req.body.user_id,
+        user_id: req.session.user_id,
+        exerciseIds: req.body.exerciseIds
     })
         .then((routine) => {
             if (req.body.exerciseIds.length) {

@@ -132,7 +132,7 @@ router.get('/routinecreate', withAuth, (req, res) => {
 }); 
 
 router.get('/addexercise', withAuth, (req, res) => {
-  res.render('addexercise');
+  res.render('addexercise', { loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;

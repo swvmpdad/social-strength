@@ -57,6 +57,7 @@ router.get('/:id', (req, res) => {
 // POST a new exercise
 router.post('/', (req, res) => {
     Exercise.create({
+        user_id: req.session.user_id,
         exercise_name: req.body.exercise_name,
         muscle_group: req.body.muscle_group,
         description: req.body.description,
