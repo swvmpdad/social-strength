@@ -8,8 +8,8 @@
         </div>
         <div class="col-3">
             <ul>
-                {{#each routine.exercise.exercise_name}}
-                <li>{{routine.exercise.exercise_name}}</li>
+                {{#each routine.exercises as |exercise|}}
+                <li>{{exercise.exercise_name}}</li>
                 {{/each}}
             </ul>
         </div>

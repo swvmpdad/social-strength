@@ -28,7 +28,7 @@ router.get('/exercise-list', withAuth, (req, res) => {
   })
     .then(dbExerciseData => {
       const exercises = dbExerciseData.map(exercise => exercise.get({ plain: true }));
-      res.render('exercise-list', { exercises });
+      res.render('exercise-list', { loggedIn: req.session.loggedIn, exercises });
     })
     .catch(err => {
       console.log(err);
@@ -50,7 +50,7 @@ router.get('/exercise/:id', withAuth, (req, res) => {
   })
     .then(dbExerciseData => {
       const exercise = dbExerciseData.get({ plain: true });
-      res.render('exercise', { exercise });
+      res.render('exercise', { loggedIn: req.session.loggedIn, exercise });
     })
     .catch(err => {
       console.log(err);
@@ -75,7 +75,7 @@ router.get('/routines', withAuth, (req, res) => {
   })
     .then(dbRoutineData => {
       const routines = dbRoutineData.map(routine => routine.get({ plain: true }));
-      res.render('routines', { routines })
+      res.render('routines', { loggedIn: req.session.loggedIn, routines })
     })
     .catch(err => {
       console.log(err);
@@ -86,48 +86,28 @@ router.get('/routines', withAuth, (req, res) => {
 router.get('/routine/:id', withAuth, (req, res) => {
   Routine.findOne({
     where: {
-      id: req.params.id
+        id: req.params.id
     },
     attributes: [
-      'id',
-      'routine_name',
-      'user_id'
+        'id',
+        'routine_name'
     ],
     include: [
-      {
-        model: User,
-        attributes: ['username']
-      },
-      // {
-      //   model: Exercise,
-      //   attributes: ['exercise_name']
-      // },
-      // {
-      //   model: RoutineExercise,
-      //   attributes: ['routine_id', 'exercise_id'],
-      //   include:
-      //     {
-      //       model: Exercise,
-      //       attributes: ['exercise_name']
-      //     }
-      // },
-      // {
-      //   model: Exercise,
-      //   attributes: ['exercise_name']
-      // }
-    //   {
-    //     model: RoutineExercise,
-    //     attributes: ['routine_id', 'exercise_id'],
-    //     include: {
-    //       model: Routine,
-    //       attributes: ['id']
-    //     }
-    //   }
+        {
+            model: User,
+            attributes: ['username']
+        },
+        {
+            model: Exercise,
+            attributes: ['exercise_name'],
+            through: RoutineExercise,
+            as: 'exercises'
+        }
     ]
-  })
+})
     .then(dbRoutineData => {
       const routine = dbRoutineData.get({ plain: true });
-      res.render('routine', { routine })
+      res.render('routine', { loggedIn: req.session.loggedIn, routine })
     })
     .catch(err => {
       res.status(500).json(err);
@@ -143,7 +123,7 @@ router.get('/routinecreate', withAuth, (req, res) => {
   })
     .then(dbExerciseData => {
       const exercises = dbExerciseData.map(exercise => exercise.get({ plain: true }));
-      res.render('routinecreate', { exercises });
+      res.render('routinecreate', { loggedIn: req.session.loggedIn, exercises });
     })
     .catch(err => {
       console.log(err);
