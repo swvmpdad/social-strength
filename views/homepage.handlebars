@@ -1,0 +1,73 @@
+{{#if loggedIn}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Welcome to Social Strength! A new social media network for sharing fitness routines!</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3 col-md-6 col-sm-12">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/deadlift.jpeg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Fitness Routines</h5>
+                    <p class="card-text">Check out our users' custom fitness routines.</p>
+                    <a href="/routines" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 col-md-6 col-sm-12">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/exercise1.jpeg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Exercise List</h5>
+                    <p class="card-text">Check out our database of exercises.</p>
+                    <a href="/exercise-list" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 col-md-6 col-sm-12">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/yoga.jpeg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Add a Routine</h5>
+                    <p class="card-text">Create your own personal routine.</p>
+                    <a href="/routinecreate" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 col-md-6 col-sm-12">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/swimming.jpeg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Add an Exercise</h5>
+                    <p class="card-text">Want to share an exercise we don't have listed? Do it here.</p>
+                    <a href="/addexercise" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+</div>
+
+{{else}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Welcome to Social Strength! A new social media network for sharing fitness routines!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Please Create an account or log in to get started!</h2>
+        </div>
+    </div>
+</div>
+{{/if}}
+

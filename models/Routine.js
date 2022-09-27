@@ -22,19 +22,12 @@ Routine.init(
                 model: 'user',
                 key: 'id'
             }
-        },
-        excercise_ids: {
-            type: DataTypes.ARRAY,
-            references: {
-                model: 'exercise',
-                key: 'id'
-            }
         }
     },
     {
         sequelize,
-        timestamps: false,
         underscored: true,
+        freezeTableName: true,
         modelName: 'routine'
     }
 );

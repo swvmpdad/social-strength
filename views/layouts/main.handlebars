@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Strength</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header class="container">
+    <div class="col-3"></div>
+    <div class="col-auto">
+      <h1>Welcome to Social Strength!</h1>
+    </div>
+    <div class="col-3"></div>
+  </header>
+  <nav>
+    <a href="/">
+      <button type="button" class="btn-secondary">Home</button>
+    </a>
+    {{#if loggedIn}}
+    <button id="logout" type="button" class="btn-secondary">Logout</button>
+    {{else}}
+    <a href="/log-in">
+      <button type="button" class="btn-secondary">Login</button>
+    </a>
+    {{/if}}
+  </nav>
+  <main>
+    {{{body}}}
+  </main>
+    {{#if loggedIn}}
+  <footer>
+    <p>Made by Garrett, Alan, Jayden, and Chitiz</p>
+  </footer>
+    {{else}}
+    <footer>
+      <p>
+
+        <div>you are logged out. Please log in to view the site.</div>
+
+      </p>
+    {{/if}}
+  {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+</body>
+
+</html>

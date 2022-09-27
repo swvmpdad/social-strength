@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h2>{{routine.routine_name}}</h2>
+        </div>
+        <div class="col-3">
+            <h2>{{routine.user.username}}</h2>
+        </div>
+        <div class="col-3">
+            <ul>
+                {{#each routine.exercises as |exercise|}}
+                <li>{{exercise.exercise_name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

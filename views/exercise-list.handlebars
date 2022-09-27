@@ -1,0 +1,7 @@
+<div class="container">
+    <ul>
+        {{#each exercises as |exercise|}}
+        <li><a id="{{exercise.id}}" class="exercise" href="/exercise/{{exercise.id}}">{{exercise.exercise_name}}</a></li>
+        {{/each}}
+    </ul>
+</div>
